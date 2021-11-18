@@ -9,8 +9,13 @@ def home(request):
     return render(request,"home.html")
 
 def estadisticas(request):
+        
+    busqueda = Data.objects.all()[:5]
+    print(busqueda[0].navegador)
+    
+    return render(request, "estadisticas.html",busqueda[0].navegador)
 
-    return render(request, "estadisticas.html")
+
 
 def graficos(request):
 
@@ -31,7 +36,7 @@ def busqueda(request):
         formulario=FormularioBusqueda()
 
 
-    return render(request, "busqueda.html", {"form":formulario})
+    return render(request, "busqueda.html", {"form":formulario}) 
 
 
 # Create your views here.
