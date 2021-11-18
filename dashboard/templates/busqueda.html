@@ -5,12 +5,12 @@
 
 
 <!--CONTENIDO HTML VA ACA-->
-<h1 style="color: white;">Introduzca busqueda</h1>
+<h1 style="color: black;">Introduzca busqueda</h1>
 {% if form.errors %}
 <p style="color: red;">Por favor revisa este campo</p>
 {% endif %}
 
-<form action="" method="POST"> {% csrf_token %}
+<form action="" method="POST" style="color: white;"> {% csrf_token %}
 
     <table>
         {{ form.as_table }}

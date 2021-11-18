@@ -22,8 +22,11 @@ def busqueda(request):
         formulario=FormularioBusqueda(request.POST)
         if formulario.is_valid():
             infForm=formulario.cleaned_data
-            busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
-            print(busqueda)
+            if infForm["esRespuesta"] == False:
+                busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
+            else:
+                busqueda=Data.objects.filter(respuesta_bot__icontains=infForm["entrada"])
+            print(busqueda[30].id)
         else:
             print("error")
 
