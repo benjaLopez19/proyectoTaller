@@ -4,6 +4,18 @@
 {% block content %}
 
 <!--CONTENIDO HTML VA ACA-->
-<p></p>
+<h1 style="color: white;">Introduzca busqueda</h1>
+{% if form.errors %}
+<p style="color: red;">Por favor revisa este campo</p>
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+        {{ form.as_table }}
+    </table>
+
+    <input type="submit" value="Enviar">
+</form>
 
 {% endblock %}
