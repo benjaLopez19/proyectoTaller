@@ -10,10 +10,11 @@ def home(request):
 
 def estadisticas(request):
         
-    busqueda = Data.objects.all()[:5]
-    print(busqueda[0].navegador)
-    
-    return render(request, "estadisticas.html",busqueda[0].navegador)
+    busqueda = Data.objects.all()
+    print(busqueda)
+
+
+    return render(request, "estadisticas.html",{"nae":busqueda[0].navegador})
 
 
 
@@ -27,8 +28,11 @@ def busqueda(request):
         formulario=FormularioBusqueda(request.POST)
         if formulario.is_valid():
             infForm=formulario.cleaned_data
-            busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
-            print(busqueda)
+            if infForm["esRespuesta"] == False:
+                busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
+            else:
+                busqueda=Data.objects.filter(respuesta_bot__icontains=infForm["entrada"])
+            print(busqueda[30].id)
         else:
             print("error")
 
