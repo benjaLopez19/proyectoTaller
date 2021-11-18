@@ -3,7 +3,38 @@
 
 {% block content %}
 
+
 <!--CONTENIDO HTML VA ACA-->
+
+<h1 class="display-3" id="titulo">
+    Busqueda de mensajes:
+</h1>
+
+<form>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ingrese el mensaje:</label>
+        <input type="text" class="form-control" id="mensaje" aria-describedby="emailHelp"
+            placeholder="Enter email">
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <div>  <button type="submit" class="btn btn-primary">Ingresar</button></div>
+  
+    
+</form>
+    
+    <h3 class="display-3">Mensaje replicado:</h3>
+    
+    <div class="container-fluid">
+        <p>Mensaje del cliente</p>
+        <p>Mensaje del bot</p>
+    </div>
+
+
 <p></p>
 
 {% endblock %}
