@@ -2,39 +2,37 @@
 
 <head>
 
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
-    <!-- Bootstrap -->
-    <!--<link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+  <!-- Bootstrap -->
+  <!--<link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
 
 
-     <!-- Fonts -->
-    
-     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
-     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
-     
-
-    <!-- Styles -->
-    <!--<link href="/css/gestion.css" rel="stylesheet">-->
-    <link href="../static/css/gestion.css" rel="stylesheet">
-    <link href="../static/css/estadisticas.css" rel="stylesheet">
-
-    <!-- Titulo de la pagina -->
+  <!-- Styles -->
+  <!--<link href="/css/gestion.css" rel="stylesheet">-->
+  <link href="../static/css/gestion.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      
-        <span class="site-heading-lower">Dashboard para Chatbot</span>
-      </h1>
+  <!--
+  <h1 class="site-heading text-center d-none d-lg-block">
 
+    <span class="site-heading-lower">Dashboard para Chatbot</span>
+  </h1>
+  -->
 
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark py-lg-4" id="mainNav">
     <div class="container">
-      <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="home.html">Dashboard para Chatbot</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-bold" href="home.html">Dashboard para Chatbot</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -52,9 +50,9 @@
             <a class="nav-link text-uppercase text-expanded" href="{% url 'graficos' %}">Gráficos</a>
           </li>
           <li>
-          {% if user.is_superuser %}
+            {% if user.is_superuser %}
             <a class="nav-link text-uppercase text-expanded" href="/admin">Sitio de administracion</a>
-          {% endif %}
+            {% endif %}
           </li>
           <li class="nav-item px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'logout' %}">Cerrar sesion</a>
@@ -64,8 +62,8 @@
     </div>
   </nav>
 
- 
-   <!-- Heading 
+
+  <!-- Heading 
    <section class="page-section clearfix">
     <div class="container">
       <div class="intro">
@@ -84,8 +82,8 @@
   </section> -->
 
 
-  
-    <!-- Message 
+
+  <!-- Message 
     <section class="page-section cta">
       <div class="container">
         <div class="row">
@@ -102,50 +100,50 @@
       </div>
     </section> -->
 
-    {% block content %}
+  {% block content %}
 
 
-    {% endblock %}
+  {% endblock %}
 
-  
-    
 
-    <!-- Footer -->
-    <footer class="footer text-faded text-center py-5">
-      <div class="container">
-        <p class="m-0">
-	        <a href="#" class="link">
-	          <span class="fa-stack fa-lg">
-	            <i class="fa fa-circle fa-stack-2x"></i>
-	            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-	          </span>
-	        </a>
-	        <a href="#" class="link">
-	          <span class="fa-stack fa-lg">
-	            <i class="fa fa-circle fa-stack-2x"></i>
-	            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-	          </span>
-	        </a>
-	        <a href="#" class="link">
-	          <span class="fa-stack fa-lg">
-	            <i class="fa fa-circle fa-stack-2x"></i>
-	            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-	          </span>
-	        </a>
-	    </p>
-        <p class="m-0 mbt">
-        	<a href="sample.html" class="link">Política de privacidad</a> ·
-        	<a href="sample.html" class="link">Aviso legal</a> ·
-        	<a href="https://somoseasybots.com" class="link">www.somoseasybots.com</a> ·
-          <a href="mailto:hola@somoseasybots.com" class="link">hola@somoseasybots.com</a> ·
-		</p>
-        <p class="m-0 mbt1">&copy; Dashboard para Chatbot</p>
-      </div>
-	</footer>
 
-    <!-- Bootstrap -->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Footer -->
+  <footer class="footer text-faded text-center py-5">
+    <div class="container">
+      <p class="m-0">
+        <a href="#" class="link">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+        <a href="#" class="link">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+        <a href="#" class="link">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </p>
+      <p class="m-0 mbt">
+        <a href="sample.html" class="link">Política de privacidad</a> ·
+        <a href="sample.html" class="link">Aviso legal</a> ·
+        <a href="https://somoseasybots.com" class="link">www.somoseasybots.com</a> ·
+        <a href="mailto:hola@somoseasybots.com" class="link">hola@somoseasybots.com</a> ·
+      </p>
+      <p class="m-0 mbt1">&copy; Dashboard para Chatbot</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap -->
+  <script src="../static/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
