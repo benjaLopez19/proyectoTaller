@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from dashboard.forms import FormularioBusqueda
+from dashboard.models import Data
 
 def home(request):
 
@@ -19,9 +20,18 @@ def busqueda(request):
 
     if request.method=="POST":
         formulario=FormularioBusqueda(request.POST)
+        if formulario.is_valid():
+            infForm=formulario.cleaned_data
+            busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
+            print(busqueda)
+        else:
+            print("error")
+
+    else:
+        formulario=FormularioBusqueda()
 
 
-    return render(request, "busqueda.html")
+    return render(request, "busqueda.html", {"form":formulario})
 
 
 # Create your views here.
