@@ -39,8 +39,48 @@ def estadisticas(request):
 
 
 def graficos(request):
+    #=========================================================================================INTENT
+    busqueda = Data.objects.all()
+    intents =[]
+    palabras=[]
+    numeros=[]
 
-    return render(request, "graficos.html")
+    i=0
+    k=0
+    while i < 200:
+        if busqueda[i].intent==None :
+            next
+
+        if i==0 : 
+            diccionario ={"intent":busqueda[i].intent,"cantidad":1}
+            intents.append(diccionario) #agregar primer elemento al arreglo
+
+        res = next((sub for sub in intents if sub['intent'] == busqueda[i].intent), None)
+        if res == None:
+            diccionario ={"intent":busqueda[i].intent,"cantidad":1}
+            intents.append(diccionario)
+        else   :
+            index = next((index for (index, d) in enumerate(intents) if d["intent"] == busqueda[i].intent), None)
+            num=res.get("cantidad")
+            num+=1
+            intents[index].update({"cantidad":num})
+
+        i+=1
+
+    print("------------ LISTA -----------")
+    while k<len(intents):
+
+        palabras.append(intents[k].get("intent"))
+        numeros.append(intents[k].get("cantidad"))
+        k+=1
+
+    print("largo",len(intents))
+
+
+    #=========================================================================================FECHA
+    
+
+    return render(request, "graficos.html",{"intents":palabras, "cantidad":numeros})
 
 def busqueda(request):
 
