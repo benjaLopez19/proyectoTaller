@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login
 from dashboard.forms import FormularioBusqueda
 from dashboard.models import Data
 
+
+
 def home(request):
 
     return render(request,"home.html")
@@ -11,10 +13,24 @@ def home(request):
 def estadisticas(request):
         
     busqueda = Data.objects.all()
-    print(busqueda)
+    confianza = []
+    suma = 0
+    #=====================================================================================confianza
+    i=0
+
+    while i < 2000:
+     
+        confianza.append(busqueda[i].confidence) 
+        print(confianza[i])
+
+        i+=1
 
 
-    return render(request, "estadisticas.html",{"nae":busqueda[0].navegador})
+    #=========================================================================================calificacion 
+
+
+
+    return render(request, "estadisticas.html",{"confianza":confianza})
 
 
 
