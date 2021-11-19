@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from dashboard.forms import FormularioBusqueda
 from dashboard.models import Data
+from django.utils.html import strip_tags
 
 
 
@@ -13,26 +14,47 @@ def home(request):
 def estadisticas(request):
         
     busqueda = Data.objects.all()
-    confianza = []
+    confianza = [6]
     suma = 0
     #=====================================================================================confianza
     i=0
     contador=0
-    while i < 2000:
+    #=========================================================================================PALABRAS MAS BUSCADAS VARIABLES
+    palabras = [{"0":0}]
+    masrepetidas = [6]
+    aux = []
+
+    while i < 10:
      
         confianza.append(busqueda[i].confidence)            #agregar elementos al arreglo
         if isinstance(confianza[i],float):
             suma = suma + confianza[i]              #promedio
             contador+=1
         i+=1
+        
+        buffer = busqueda[i].mensaje_usuario
+        aux = buffer.split()                                        #arreglo donde estan todas las palabras
+    
+        """     
+        j=0   
+        while j < len(aux):
+            
+            if palabras.__contains__(aux[j]):
+                palabras[aux[j]] += 1   
+            else:
+                palabras[aux[j]] = 0
+            
+        j+=1
 
+    print(palabras)
+        """ 
     promedio = suma/contador
-    print(promedio)
-
-    #=========================================================================================calificacion 
-
     
 
+    #=========================================================================================PALABRAS MAS BUSCADAS
+
+    
+    
 
     return render(request, "estadisticas.html",{"confianza":promedio})
 
