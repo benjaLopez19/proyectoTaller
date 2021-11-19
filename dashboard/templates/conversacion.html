@@ -1,0 +1,29 @@
+{% extends 'base.html' %} <!--HERENCIA DE BASE-->
+{% load static %}
+
+{% block content %}
+
+<!--CONTENIDO HTML VA ACA-->
+<h1><a href="{% url 'busqueda' %}">Volver a busqueda</a></h1>
+{% if busqueda %}
+    {% for var in busqueda %}
+        <ul>
+            <li>
+                <ul>
+                    <li>
+                        <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
+                    </li>
+                    <li>
+                        <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    {% endfor %}
+{% elif error %}
+    <p>No hubo resultados</p>
+{% endif %}
+
+  
+
+{% endblock %}

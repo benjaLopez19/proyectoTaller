@@ -19,4 +19,31 @@
     <input type="submit" value="Enviar">
 </form>
 
+{% if busqueda %}
+
+    {% for var in busqueda %}
+
+        <ul>
+            <li>
+                <ul>
+                    <li>
+                        <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
+                    </li>
+                    <li>
+                        <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
+                    </li>
+                    <li>
+                        <form action="/convContext/{{var.conversation_id}}">
+                            <button>Id de la conversacion: {{var.conversation_id}}</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    {% endfor %}
+
+{% elif noHayResultados %}
+    <p style="color: red;font-weight: bold;">{{noHayResultados}}</p>
+{% endif %}
+
 {% endblock %}
