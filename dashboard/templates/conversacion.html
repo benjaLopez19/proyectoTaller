@@ -3,21 +3,52 @@
 
 {% block content %}
 
+<style>
+    .usercontainer{
+    float: right;
+    border: 2px solid #73AD21;
+    background-color: #73AD21;
+    margin-right: 2%;   
+    max-width:60%;
+    min-height: fit-content;
+    max-height: fit-content;
+    border-radius: 10px 10px 1px 15px;
+    }
+    .botcontainer{
+    float: left;
+    border: 2px solid skyblue;
+    background-color: skyblue;
+    margin-left: 2%;
+    max-width:60%;
+    min-height: fit-content;
+    max-height: fit-content;
+    border-radius: 10px 10px 15px 1px;
+    
+    }
+    p{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
+
+
+
+</style>
+
 <!--CONTENIDO HTML VA ACA-->
-<h1><a href="{% url 'busqueda' %}">Volver a busqueda</a></h1>
+<h3><a href="{% url 'busqueda' %}">Volver a busqueda</a></h3><br/>
+<h1>Revisar conversación</h1>
+
 {% if busqueda %}
     {% for var in busqueda %}
         <ul>
-            <li>
-                <ul>
-                    <li>
-                        <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
-                    </li>
-                    <li>
-                        <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
-                    </li>
-                </ul>
-            </li>
+            <div class="botcontainer">
+                <p>{{var.mensaje_usuario}}</p>
+            </div>
+            <br />
+            <div class="usercontainer">
+                <p>{{var.respuesta_bot|striptags}}</p>
+            </div>
+            <br />
         </ul>
     {% endfor %}
 {% elif error %}
