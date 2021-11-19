@@ -30,6 +30,5 @@ class Data(models.Model):
 
     def __str__(self):
         return 'Mensaje usuario: %s \n respuesta bot: %s \n id de conversacion %s' % (self.mensaje_usuario, self.respuesta_bot, self.conversation_id)
-
-
+        
 # Create your models here.

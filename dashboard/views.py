@@ -4,13 +4,39 @@ from django.contrib.auth import authenticate, login
 from dashboard.forms import FormularioBusqueda
 from dashboard.models import Data
 
+
+
 def home(request):
 
     return render(request,"home.html")
 
 def estadisticas(request):
+        
+    busqueda = Data.objects.all()
+    confianza = []
+    suma = 0
+    #=====================================================================================confianza
+    i=0
+    contador=0
+    while i < 2000:
+     
+        confianza.append(busqueda[i].confidence)            #agregar elementos al arreglo
+        if isinstance(confianza[i],float):
+            suma = suma + confianza[i]              #promedio
+            contador+=1
+        i+=1
 
-    return render(request, "estadisticas.html")
+    promedio = suma/contador
+    print(promedio)
+
+    #=========================================================================================calificacion 
+
+    
+
+
+    return render(request, "estadisticas.html",{"confianza":promedio})
+
+
 
 def graficos(request):
 
@@ -44,10 +70,9 @@ def convContext(request, id):
         else:
             return render(request, "conversacion.html", {"busqueda": busqueda})
 
-  
-        
     
 
+    return render(request, "busqueda.html", {"form":formulario}) 
 
 
 # Create your views here.
