@@ -17,20 +17,24 @@ def estadisticas(request):
     suma = 0
     #=====================================================================================confianza
     i=0
-
+    contador=0
     while i < 2000:
      
-        confianza.append(busqueda[i].confidence) 
-        print(confianza[i])
-
+        confianza.append(busqueda[i].confidence)            #agregar elementos al arreglo
+        if isinstance(confianza[i],float):
+            suma = suma + confianza[i]              #promedio
+            contador+=1
         i+=1
 
+    promedio = suma/contador
+    print(promedio)
 
     #=========================================================================================calificacion 
 
+    
 
 
-    return render(request, "estadisticas.html",{"confianza":confianza})
+    return render(request, "estadisticas.html",{"confianza":promedio})
 
 
 
