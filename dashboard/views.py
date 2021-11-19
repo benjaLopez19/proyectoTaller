@@ -23,18 +23,31 @@ def busqueda(request):
         if formulario.is_valid():
             infForm=formulario.cleaned_data
             if infForm["esRespuesta"] == False:
-                busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])
+                busqueda=Data.objects.filter(mensaje_usuario__icontains=infForm["entrada"])[:100]
             else:
-                busqueda=Data.objects.filter(respuesta_bot__icontains=infForm["entrada"])
-            print(busqueda[30].id)
-        else:
-            print("error")
-
+                busqueda=Data.objects.filter(respuesta_bot__icontains=infForm["entrada"])[:50]
+            if not busqueda:
+                return render(request, "busqueda.html", {"form":formulario,"noHayResultados":"No se encontraron resultados"})
+            else:
+                return render(request, "busqueda.html", {"form":formulario,"busqueda":busqueda})
     else:
         formulario=FormularioBusqueda()
+        return render(request, "busqueda.html", {"form":formulario})
 
+def convContext(request, id):
+    if id:
+        print('if')
+        busqueda=Data.objects.filter(conversation_id__icontains=id).order_by("fecha")
+        print(busqueda)
+        if not busqueda:
+            return render(request,"conversacion.html",{"error":"No hubo resultados"})
+        else:
+            return render(request, "conversacion.html", {"busqueda": busqueda})
 
-    return render(request, "busqueda.html", {"form":formulario})
+  
+        
+    
+
 
 
 # Create your views here.

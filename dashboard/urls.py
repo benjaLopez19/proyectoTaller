@@ -7,4 +7,5 @@ urlpatterns = [
     path('estadisticas/', login_required(views.estadisticas), name="estadisticas"),
     path('busqueda/', login_required(views.busqueda), name="busqueda"),
     path('graficos/', login_required(views.graficos), name="graficos"),
+    path('convContext/<id>',login_required(views.convContext), name="convContext"),
 ]
