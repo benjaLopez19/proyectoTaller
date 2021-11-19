@@ -35,17 +35,17 @@
 </style>
 
 <!--CONTENIDO HTML VA ACA-->
-<h3><a href="{% url 'busqueda' %}">Volver a busqueda</a></h3><br/>
-<h1>Revisar conversación</h1>
+<!--h3><a href="{% url 'busqueda' %}">Volver a busqueda</a></h3><br/-->
+<h1 class="text-center text-capitalize bg-light p-3 mb-2">Revisar conversación</h1>
 
 {% if busqueda %}
     {% for var in busqueda %}
-        <ul>
-            <div class="botcontainer">
+        <ul class="mx-5">
+            <div class="botcontainer p-2">
                 <p>{{var.mensaje_usuario}}</p>
             </div>
             <br />
-            <div class="usercontainer">
+            <div class="usercontainer p-2">
                 <p>{{var.respuesta_bot|striptags}}</p>
             </div>
             <br />

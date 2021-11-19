@@ -27,23 +27,25 @@
 
     {% for var in busqueda %}
 
-        <ul>
-            <li>
-                <ul>
-                    <li>
-                        <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
-                    </li>
-                    <li>
-                        <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
-                    </li>
-                    <li>
-                        <form action="/convContext/{{var.conversation_id}}">
-                            <button>Id de la conversacion: {{var.conversation_id}}</button>
-                        </form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <div class="card p-2 m-2 ml-5 mr-5">
+            <ul style="list-style-type: none;">
+                <li>
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
+                        </li>
+                        <li>
+                            <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
+                        </li>
+                        <li class="align-content-center">
+                            <form action="/convContext/{{var.conversation_id}}">
+                                <button class="btn btn-outline-info my-2 my-sm-0">Id de la conversacion: {{var.conversation_id}}</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     {% endfor %}
 
 {% elif noHayResultados %}
