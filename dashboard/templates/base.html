@@ -27,18 +27,16 @@
   -->
 
   <!-- Navbar -->
-  <nav class="navbar navbar-dark py-lg-4" id="mainNav">
-    <div class="container">
+  <nav class="navbar navbar-expand sticky-top" id="mainNav">
+    <div class="container ">
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold" href="{% url 'home' %}">Dashboard para Chatbot</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+      <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'home' %}">Inicio</a>
-          </li>
+      </button-->
+      <div class="">
+        <ul class="navbar-nav mr-auto">
+          
           <li class="nav-item {% if request.path == '/busqueda/' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'busqueda' %}">Búsqueda</a>
           </li>
@@ -104,11 +102,10 @@
 
   {% endblock %}
 
-
-
-
+  <div class="preFooter"></div>
+  
   <!-- Footer -->
-  <footer class="footer text-faded text-center fixed-bottom py-2">
+  <footer class="footer  text-faded text-center py-1">
     <div class="container">
       <p class="m-0">
         <a href="#" class="link">
@@ -145,6 +142,7 @@
   <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 
 
 </html>

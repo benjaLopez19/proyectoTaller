@@ -4,6 +4,9 @@ body {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 h1,
@@ -277,4 +280,8 @@ ul.errorlist{
   padding-top: .75rem;
   font-style: italic;
   color: red;
+}
+
+.preFooter {
+  flex: 1;
 }
