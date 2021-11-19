@@ -11,7 +11,7 @@
 
     <h3>{{confianza}}</h3>
 
-    <label for="confidence">Observacion:La confianza del bot, se define como la seguridad que tiene el bot de que la respuesta del usuario sea igual a la pronosticada. Mientras más cercano a 1, mayor es la confianza</label>
+    <label for="confidence">Observacion: La confianza del bot, se define como la seguridad que tiene el bot de que la respuesta del usuario sea igual a la pronosticada. Mientras más cercano a 1, mayor es la confianza</label>
 
 </div>
 
@@ -20,7 +20,49 @@
     <h4>
         Palabras mas repetidas:
     </h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Palabra</td>
+                <td>Cantidad</td>
+                <td>Frecuencia</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Ayuda</td>
+                <td>2394</td>
+                <td>19.95%</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Comprar</td>
+                <td>2181</td>
+                <td>18.17%</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Devolución</td>
+                <td>1167</td>
+                <td>9.72%</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Clave</td>
+                <td>978</td>
+                <td>8.15%</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Tarjeta</td>
+                <td>552</td>
+                <td>4.6%</td>
+            </tr>
+        </thead>
 
+    </table>
+    <label for="confidence">Observacion: La cantidad es la veces que se encontro la palabra en la base de datos y su frecuencia es la probabilidad de aparición en una conversación.</label>
+<!---
         <canvas id="myChart" height="100%"></canvas>
         <script>
             const ctx = document.getElementById('myChart').getContext('2d');
@@ -59,6 +101,7 @@
                 }
             });
         </script>
+    -->
 
 </div>
 
