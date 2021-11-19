@@ -5,20 +5,25 @@
 
 <!--CONTENIDO HTML VA ACA-->
 <div>
+    <br>
+    <h1>    INTENT (intenciones del bot mas repetidas)</h1>
     <canvas id="myChart" height="100%"></canvas>
+    <br>
+    <br>
+    <h1>    FECHAS (fechas en las que se realizaron mas consultas) </h1>
     <canvas id="myChart2" height="100%"></canvas>
     <script>
         datos=["Tengo_una_duda","Estado_orden_compra","Tienda_horario","Cambios_devoluciones","Otras_consultas","Bloqueo_tarjeta"]
-        nums=[32,45,30,41,29,36]
-        datos2=["07/10/2019","08/10/2019","09/10/2019","20/12/2019","","23/12/2019","29/11/2019"]
-        nums2=[52,47,31,66,37,61]
+        nums=[32,46,30,41,29,36]
+        datos2=["07/10/2019","08/10/2019","09/10/2019","29/11/2019","20/12/2019","23/12/2019","24/12/2019","27/12/2019"]
+        nums2=[52,47,31,36,37,41,44,27]
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: datos,
             datasets: [{
-                label: '# of Votes',
+                label: '',
                 data: nums,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -53,7 +58,7 @@
         data: {
             labels: datos2,
             datasets: [{
-                label: '# of Votes',
+                label: '',
                 data: nums2,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
