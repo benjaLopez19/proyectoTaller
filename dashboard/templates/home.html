@@ -2,11 +2,71 @@
 {% load static %}
 
 {% block content %}
-<h2>Bienvenido al dashboard de Easybots</h2>
+
 <!--CONTENIDO HTML VA ACA-->
+<style>
+    h1{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+        font-weight: bolder;
+    }
+    h2{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: black;
+        font-weight: bolder;
+    }
+
+    .left {
+      float: left;
+      font-size: 40px;
+      margin-top: 10%;
+      margin-left: 5%;
+      width: 600px;
+      border: 3px ;
+      padding: 10px;
+      background-color: #73AD21;
+      border-radius: 25px;
+      width: fit-content;
+      height: fit-content;
+      
+    }
+
+    .button {
+    background-color: blue; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+img{
+        
+        max-width: 50%;
+        height: auto;
+    }
 
 
-<!--HEADER-->
-  
+    </style>
+    </head>
+
+
+<body>
+    <div class="left">
+        <h1>Somos easy bots</h1>
+        <h4>Transforma tu experiencia de atención al cliente</h4>
+        <h6>Tenemos una solución probada para automatizar la comunicación con tus clientes en todos los canales.</h6>
+
+        <div align ="center ">
+            <a href="https://somoseasybots.com/#contact" class="button"><h2>agenda tu reunión ahora</h2></a>
+        </div>
+    </div>     
+
+    <img src="https://somoseasybots.com/img/ilusPpal.png" align="right">
+</body>
 
 {% endblock %}

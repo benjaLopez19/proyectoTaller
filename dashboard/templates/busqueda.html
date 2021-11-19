@@ -5,41 +5,47 @@
 
 
 <!--CONTENIDO HTML VA ACA-->
-<h1 style="color: black;">Introduzca busqueda</h1>
-{% if form.errors %}
-<p style="color: red;">Por favor revisa este campo</p>
-{% endif %}
 
-<form action="" method="POST" style="color: white;"> {% csrf_token %}
+<nav class = "navbar p-1 sticky-top bg-light justify-content-center" style="top:56px" >
+    <div class="navbar-brand pl-5">Introduzca busqueda</div>
+    {% if form.errors %}
+    <!--p style="color: red;">Por favor revisa este campo</p-->
+    {% endif %}
 
-    <table>
-        {{ form.as_table }}
-    </table>
+    <form class="form form-check-inline m-0" action="" method="POST" > 
+        {% csrf_token %}
+        
+        <ul class="list-group justify-content-center pl-3 pr-5" style="list-style-type: none;">
+            {{form.as_ul}}
+        </ul>
 
-    <input type="submit" value="Enviar">
-</form>
+        <input class="btn btn-outline-secondary my-2 my-sm-0" type="submit" value="Buscar">
+    </form>
+</nav>
 
 {% if busqueda %}
 
     {% for var in busqueda %}
 
-        <ul>
-            <li>
-                <ul>
-                    <li>
-                        <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
-                    </li>
-                    <li>
-                        <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
-                    </li>
-                    <li>
-                        <form action="/convContext/{{var.conversation_id}}">
-                            <button>Id de la conversacion: {{var.conversation_id}}</button>
-                        </form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <div class="card p-2 m-2 ml-5 mr-5">
+            <ul style="list-style-type: none;">
+                <li>
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
+                        </li>
+                        <li>
+                            <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
+                        </li>
+                        <li class="align-content-center">
+                            <form action="/convContext/{{var.conversation_id}}">
+                                <button class="btn btn-outline-info my-2 my-sm-0">Id de la conversacion: {{var.conversation_id}}</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     {% endfor %}
 
 {% elif noHayResultados %}
