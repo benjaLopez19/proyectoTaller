@@ -17,116 +17,132 @@ def home(request):
 #=========================================================================================
 
 def estadisticas(request):
-        
     busqueda = Data.objects.all()
-    confianza = [6]
+
+    #-- variables confianza --
+    confianza =0
     suma = 0
-    #=====================================================================================confianza
-    i=0
     contador=0
-    #=========================================================================================PALABRAS MAS BUSCADAS VARIABLES
-    palabras = [{"0":0}]
+    #-- variables palabras --
+    palabras = []
     masrepetidas = [6]
     aux = []
+    auxPalabras=[]
 
-    while i < 10:
-     
-        confianza.append(busqueda[i].confidence)            #agregar elementos al arreglo
-        if isinstance(confianza[i],float):
-            suma = suma + confianza[i]              #promedio
-            contador+=1
-        i+=1
+    for i in range(1000):
         
+        #== confianza ==
+        confianza = busqueda[i].confidence              #-- 
+        if isinstance(confianza,float):
+            suma = suma + confianza                     #-- 
+            contador+=1
+        
+        #== palabras mas usadas ==
         buffer = busqueda[i].mensaje_usuario
-        aux = buffer.split()                                        #arreglo donde estan todas las palabras
-    
-        """     
-        j=0   
-        while j < len(aux):
-            
-            if palabras.__contains__(aux[j]):
-                palabras[aux[j]] += 1   
-            else:
-                palabras[aux[j]] = 0
-            
-        j+=1
-
-    print(palabras)
-        """ 
+        aux = buffer.split()
+        aux = removePalabras(aux)
+        
+        if aux is None :                     #-- si el intent vuelve vacio, pasa al siguiente
+            continue
+        
+        if len(palabras)==0  :                  #-- si la lista esta vacia, ingresa el primer dato
+            for j in aux:
+                dict={'palabra':j,'numero':1}
+                palabras.append(dict)
+                auxPalabras.append(j)           #--auxpalabras se usa ya que palabras es un diccionario y es mas facil de buscar en una list
+            continue
+        
+        for k in aux:
+            if k in auxPalabras:                  #-- si la lista ya tiene un dato ingresado con el mismo intent, suma a la cantidad del intent
+                index=auxPalabras.index(k)
+                num=palabras[index].get("numero") +1
+                palabras[index].update({"numero":num})
+            else :                                  #-- si la lista no tiene un dato con este intent, se agrega a la lista
+                dict={'palabra':k,'numero':1}
+                palabras.append(dict)
+                auxPalabras.append(k)
+    #-- calcula promedio confianza --
     promedio = suma/contador
+    promedio =promedio*100
+    promedio = int(promedio)
+    #--------------------------------
     
 
     #=========================================================================================PALABRAS MAS BUSCADAS
-
-
-    return render(request, "estadisticas.html",{"confianza":promedio})
+    print("----FINAL----")
+    print(palabras)
+    return render(request, "estadisticas.html",{"confianza":promedio,"palabras":palabras})
 
 #=========================================================================================
 #==============================GRAFICOS===================================================
 #=========================================================================================
 def graficos(request):
 
-    busqueda = Data.objects.all()
+    busqueda = Data.objects.all()               #-- saco los datos de la DB
 
-    #==  INTENT  ==
-    palabras=[]
-    numeros=[]
+    palabras=[]                                 #--lista nombre intent
+    numeros=[]                                  #--lista cantidad intent
 
-    for i in range(500):
-        intent=busqueda[i].intent
+    palabrasF=[]                                #-- lista nombre fecha
+    numerosF=[]                                 #-- lista cantidad fecha
 
-        if intent is None :
+    for i in range(1000):
+
+    #== intent ==
+        intent=busqueda[i].intent               #-- asigna el intent a una variable
+
+        if intent is None :                     #-- si el intent vuelve vacio, pasa al siguiente
             continue
 
-        if len(palabras)==0  :
+        if len(palabras)==0  :                  #-- si la lista esta vacia, ingresa el primer dato
             palabras.append(intent)
             numeros.append(1)
             continue
         
-        if intent in palabras:
+        if intent in palabras:                  #-- si la lista ya tiene un dato ingresado con el mismo intent, suma a la cantidad del intent
             index=palabras.index(intent)
             numeros[index]=numeros[index] +1
-        else :
+        else :                                  #-- si la lista no tiene un dato con este intent, se agrega a la lista
             palabras.append(intent)
             numeros.append(1)
-        
-    print("------------ LISTA -----------")
-    print("largo intents:",len(palabras))
-
-    js_data1 = json.dumps(palabras)
-    js_data2 = json.dumps(numeros)
 
     #== FECHA ==
-    fechas =[]
-    palabrasF=[]
-    numerosF=[]
-    i=0
-    k=0
+        date=busqueda[i].fecha.strftime("%d-%m-%Y")     #-- asigna la fecha a una variable
 
-    for i in range(500):
-        date=busqueda[i].fecha.strftime("%d-%m-%Y")
-
-        if date is None :
+        if date is None :                       #si la fecha vuelve vacio, pasa al siguiente
             continue
 
-        if len(palabrasF)==0  :
+        if len(palabrasF)==0  :                 #si la lista esta vacia, ingresa el primer dato
             palabrasF.append(date)
             numerosF.append(1)
             continue
         
-        if date in palabrasF:
+        if date in palabrasF:                   #si la lista ya tiene un dato ingresado con la misma fecha, suma a la cantidad de la fecha
             index=palabrasF.index(date)
             numerosF[index]=numerosF[index] +1
-        else :
+        else :                                   #si la lista no tiene un dato con esta fecha, se agrega a la lista
             palabrasF.append(date)
             numerosF.append(1)
 
 
+    #== Browser ==
+        browser=busqueda[i].navegador
+        
+        print(browser)
+
+    
     print("------------ LISTA -----------")
+    print("largo intents:",len(palabras))
     print("largo fechas:",len(palabrasF))
 
-    js_dataF1 = json.dumps(palabrasF)
-    js_dataF2 = json.dumps(numerosF)
+    #== preparacion datos ==
+    #-- se transforman las listas a json para que puedan ser leidas en javascript  --
+
+    js_data1 = json.dumps(palabras)     #--json nombre intent
+    js_data2 = json.dumps(numeros)      #--json cantidad intent
+
+    js_dataF1 = json.dumps(palabrasF)   #--json nombre fecha
+    js_dataF2 = json.dumps(numerosF)    #--json cantidad fecha
 
     #== RETURN ==
     return render(request, "graficos.html", {"data1": js_data1,"data2": js_data2,"dataF1": js_dataF1,"dataF2": js_dataF2})
@@ -152,6 +168,10 @@ def busqueda(request):
         formulario=FormularioBusqueda()
         return render(request, "busqueda.html", {"form":formulario})
 
+#=========================================================================================
+#==============================CONVERSACION===============================================
+#=========================================================================================
+
 def convContext(request, id):
     if id:
         print('if')
@@ -166,5 +186,13 @@ def convContext(request, id):
 
     return render(request, "busqueda.html", {"form":formulario}) 
 
+#=========================================================================================
+#==============================FUNCIONES==================================================
+#=========================================================================================
 
-# Create your views here.
+def removePalabras(aux):
+    palabras=["en","con","si","la","y"]
+
+    aux=[word for word in aux if word not in palabras]
+
+    return aux
