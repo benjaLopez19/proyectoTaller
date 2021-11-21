@@ -12,19 +12,21 @@
     <br>
     <h1>    FECHAS (fechas en las que se realizaron mas consultas) </h1>
     <canvas id="myChart2" height="100%"></canvas>
-    <script>
-        datos=["Tengo_una_duda","Estado_orden_compra","Tienda_horario","Cambios_devoluciones","Otras_consultas","Bloqueo_tarjeta"]
-        nums=[32,46,30,41,29,36]
-        datos2=["07/10/2019","08/10/2019","09/10/2019","29/11/2019","20/12/2019","23/12/2019","24/12/2019","27/12/2019"]
-        nums2=[52,47,31,36,37,41,44,27]
+    {{data1|json_script:"data1"}}
+    {{data2|json_script:"data2"}}
+    <script id="data" type="text/javascript" >
+        
+        const received_data1 = JSON.parse("{{data1|escapejs}}");
+        const received_data2 = JSON.parse("{{data2|escapejs}}");
+
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: datos,
+            labels: received_data1,
             datasets: [{
                 label: '',
-                data: nums,
+                data: received_data2,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from dashboard.forms import FormularioBusqueda
 from dashboard.models import Data
 from django.utils.html import strip_tags
-
+import json
 
 
 def home(request):
@@ -91,7 +91,7 @@ def graficos(request):
 
     print("------------ LISTA -----------")
     while k<len(intents):
-
+        print(intents)
         palabras.append(intents[k].get("intent"))
         numeros.append(intents[k].get("cantidad"))
         k+=1
@@ -102,7 +102,10 @@ def graficos(request):
     #=========================================================================================FECHA
     
 
-    return render(request, "graficos.html",{"intents":palabras, "cantidad":numeros})
+    js_data1 = json.dumps(palabras)
+    js_data2 = json.dumps(numeros)
+    return render(request, "graficos.html", {"data1": js_data1,"data2": js_data2})
+
 
 def busqueda(request):
 
