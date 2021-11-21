@@ -12,6 +12,10 @@ def home(request):
 
     return render(request,"home.html")
 
+#=========================================================================================
+#==============================ESTADISTICAS===============================================
+#=========================================================================================
+
 def estadisticas(request):
         
     busqueda = Data.objects.all()
@@ -54,104 +58,82 @@ def estadisticas(request):
 
     #=========================================================================================PALABRAS MAS BUSCADAS
 
-    
-    
 
     return render(request, "estadisticas.html",{"confianza":promedio})
 
-
-
+#=========================================================================================
+#==============================GRAFICOS===================================================
+#=========================================================================================
 def graficos(request):
-    #=========================================================================================INTENT
+
     busqueda = Data.objects.all()
-    intents =[]
+
+    #==  INTENT  ==
     palabras=[]
     numeros=[]
 
-    i=0
-    k=0
-    while i < 150:
-        if busqueda[i].intent==None :
-            next
+    for i in range(500):
+        intent=busqueda[i].intent
 
-        if i==0 : 
-            diccionario ={"intent":busqueda[i].intent,"cantidad":1}
-            intents.append(diccionario) #agregar primer elemento al arreglo
+        if intent is None :
+            continue
 
-        res = next((sub for sub in intents if sub['intent'] == busqueda[i].intent), None)
-        if res == None:
-            if busqueda[i].intent==None:
-                i+=1
-                next
-            diccionario ={"intent":busqueda[i].intent,"cantidad":1}
-            intents.append(diccionario)
-        else   :
-            index = next((index for (index, d) in enumerate(intents) if d["intent"] == busqueda[i].intent), None)
-            num=res.get("cantidad")
-            num+=1
-            intents[index].update({"cantidad":num})
-
-        i+=1
-
-    print("------------ LISTA -----------")
-    while k<len(intents):
-        palabras.append(intents[k].get("intent"))
-        numeros.append(intents[k].get("cantidad"))
-        print(intents[k])
-        k+=1
+        if len(palabras)==0  :
+            palabras.append(intent)
+            numeros.append(1)
+            continue
         
+        if intent in palabras:
+            index=palabras.index(intent)
+            numeros[index]=numeros[index] +1
+        else :
+            palabras.append(intent)
+            numeros.append(1)
+        
+    print("------------ LISTA -----------")
+    print("largo intents:",len(palabras))
 
-    print("largo",len(intents))
     js_data1 = json.dumps(palabras)
     js_data2 = json.dumps(numeros)
-    #=========================================================================================FECHA
+
+    #== FECHA ==
     fechas =[]
     palabrasF=[]
     numerosF=[]
-
     i=0
     k=0
-    while i < 150:
+
+    for i in range(500):
+        date=busqueda[i].fecha.strftime("%d-%m-%Y")
+
+        if date is None :
+            continue
+
+        if len(palabrasF)==0  :
+            palabrasF.append(date)
+            numerosF.append(1)
+            continue
         
-        if busqueda[i].fecha==None :
-            next
+        if date in palabrasF:
+            index=palabrasF.index(date)
+            numerosF[index]=numerosF[index] +1
+        else :
+            palabrasF.append(date)
+            numerosF.append(1)
 
-        if i==0 : 
-            date=busqueda[i].fecha.strftime("%d-%m-%Y")
-            diccionario ={"fecha":date,"cantidad":1}
-            fechas.append(diccionario) #agregar primer elemento al arreglo
-
-        res = next((sub for sub in fechas if sub['fecha'] == busqueda[i].fecha.strftime("%d-%m-%Y")), None)
-        if res == None:
-            diccionario ={"fecha":busqueda[i].fecha.strftime("%d-%m-%Y"),"cantidad":1}
-            fechas.append(diccionario)
-        else   :
-            index = next((index for (index, d) in enumerate(fechas) if d["fecha"] == busqueda[i].fecha.strftime("%d-%m-%Y")), None)
-            num=res.get("cantidad")
-            num+=1
-            fechas[index].update({"cantidad":num})
-
-        i+=1
-    
 
     print("------------ LISTA -----------")
-    while k<len(fechas):
-        palabrasF.append(fechas[k].get("fecha"))
-        numerosF.append(fechas[k].get("cantidad"))
-        print(fechas[k])
-        print(palabrasF[k])
-        k+=1
+    print("largo fechas:",len(palabrasF))
 
-    print("largo",len(fechas))
     js_dataF1 = json.dumps(palabrasF)
     js_dataF2 = json.dumps(numerosF)
 
+    #== RETURN ==
     return render(request, "graficos.html", {"data1": js_data1,"data2": js_data2,"dataF1": js_dataF1,"dataF2": js_dataF2})
 
 #=========================================================================================
 #==============================BUSQUEDA===================================================
 #=========================================================================================
-
 def busqueda(request):
 
     if request.method=="POST":

@@ -6,32 +6,54 @@
 <!--CONTENIDO HTML VA ACA-->
 <div>
     <br>
+
+    <!-- mostrar chart de intent -->
     <h1>    INTENT (intenciones del bot mas repetidas)</h1>
     <canvas id="myChart" height="100%"></canvas>
+    <!-- -->
+
     <br>
     <br>
+
+    <!-- mostrar chart de fecha -->
     <h1>    FECHAS (fechas en las que se realizaron mas consultas) </h1>
     <canvas id="myChart2" height="100%"></canvas>
-    {{data1|json_script:"data1"}}
-    {{data2|json_script:"data2"}}
-    {{dataF1|json_script:"dataF1"}}
-    {{dataF2|json_script:"dataF2"}}
-    <script id="data" type="text/javascript" >
-        
-        const received_data1 = JSON.parse("{{data1|escapejs}}");
-        const received_data2 = JSON.parse("{{data2|escapejs}}");
+    <!-- -->
+    
+</div>
 
-        const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");
-        const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");
+<!-- Datos sacados de view.py -->
+
+{{data1|json_script:"data1"}}       <!-- nombre intent -->
+{{data2|json_script:"data2"}}       <!-- cantidad intent -->
+{{dataF1|json_script:"dataF1"}}     <!-- nombre fecha -->
+{{dataF2|json_script:"dataF2"}}     <!-- cantidad fecha -->
+
+<!------------------------------->
+
+<!-- Script -->
+<script id="data" type="text/javascript" >
         
+    // -- Datos recibidos de view, listos para usar -- //
+    const received_data1 = JSON.parse("{{data1|escapejs}}");    //nombre de intent
+    const received_data2 = JSON.parse("{{data2|escapejs}}");    //cantidad de intent
+
+    const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");  //"nombre" de fecha
+    const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");  //cantidad de fecha
+
+    // ---------------------------------------------- //
+    
+
+    // ------ INTENT CHART.js ------ // 
+
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: received_data1,
+            labels: received_data1,     //"nombre" recibido
             datasets: [{
                 label: '',
-                data: received_data2,
+                data: received_data2,   // cantidad recibida
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -59,42 +81,49 @@
             }
         }
     });
-    const ctx2 = document.getElementById('myChart2').getContext('2d');
-    const myChar2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: received_dataF1,
-            datasets: [{
-                label: '',
-                data: received_dataF2,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+
+// ------------------------------------------------------------ //
+
+// ------ FECHA CHART.js ------ //
+
+const ctx2 = document.getElementById('myChart2').getContext('2d');
+const myChar2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: received_dataF1,        //"nombre" recibido
+        datasets: [{
+            label: '',
+            data: received_dataF2,      //cantidad recibida
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
         }
-    });
-    </script>
-</div>
+    }
+});
+
+// ---------------------------------------------------------------- //
+
+</script>
 
 {% endblock %}
