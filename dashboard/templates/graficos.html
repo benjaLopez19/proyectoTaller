@@ -14,11 +14,16 @@
     <canvas id="myChart2" height="100%"></canvas>
     {{data1|json_script:"data1"}}
     {{data2|json_script:"data2"}}
+    {{dataF1|json_script:"dataF1"}}
+    {{dataF2|json_script:"dataF2"}}
     <script id="data" type="text/javascript" >
         
         const received_data1 = JSON.parse("{{data1|escapejs}}");
         const received_data2 = JSON.parse("{{data2|escapejs}}");
 
+        const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");
+        const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");
+        
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -58,10 +63,10 @@
     const myChar2 = new Chart(ctx2, {
         type: 'bar',
         data: {
-            labels: datos2,
+            labels: received_dataF1,
             datasets: [{
                 label: '',
-                data: nums2,
+                data: received_dataF2,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
