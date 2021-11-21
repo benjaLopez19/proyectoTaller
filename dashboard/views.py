@@ -126,9 +126,7 @@ def graficos(request):
 
 
     #== Browser ==
-        browser=busqueda[i].navegador
-        
-        print(browser)
+
 
     
     print("------------ LISTA -----------")
