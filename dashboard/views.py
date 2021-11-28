@@ -6,6 +6,7 @@ from dashboard.models import Data
 from django.utils.html import strip_tags
 import json
 from datetime import datetime
+import sys
 
 
 def home(request):
@@ -17,7 +18,9 @@ def home(request):
 #=========================================================================================
 def estadisticas(request):
     busqueda = Data.objects.all()
+    rango=2000
 
+    horas=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     #-- variables confianza --
     confianza =0
     suma = 0
@@ -28,7 +31,7 @@ def estadisticas(request):
     aux = []
     auxPalabras=[]
 
-    for i in range(1000):
+    for i in range(rango):
     #== confianza ==
         confianza = busqueda[i].confidence              #-- 
         if isinstance(confianza,float):
@@ -60,7 +63,64 @@ def estadisticas(request):
                 dict={'palabra':k,'numero':1}
                 palabras.append(dict)
                 auxPalabras.append(k)
-                
+
+    #== HORAS ==
+        hora=busqueda[i].fecha.strftime("%H") #-- asigna la fecha a una variable
+        
+        if hora is None :                       #si la fecha vuelve vacio, pasa al siguiente
+            continue   
+
+        if hora == "01":
+                horas[0]+=1
+        elif hora == "02":
+                horas[1]+=1
+        elif hora == "03":
+                horas[2]+=1
+        elif hora == "04":
+                horas[3]+=1
+        elif hora == "05":
+                horas[4]+=1
+        elif hora == "06":
+                horas[5]+=1 
+        elif hora == "07":
+                horas[6]+=1
+        elif hora == "08":
+                horas[7]+=1
+        elif hora == "09":
+                horas[8]+=1
+        elif hora == "10":
+                horas[9]+=1
+        elif hora == "11":
+                horas[10]+=1
+        elif hora == "12":
+                horas[11]+=1
+        elif hora == "13":
+                horas[12]+=1
+        elif hora == "14":
+                horas[13]+=1
+        elif hora == "15":
+                horas[14]+=1
+        elif hora == "16":
+                horas[15]+=1
+        elif hora == "17":
+                horas[16]+=1 
+        elif hora == "18":
+                horas[17]+=1
+        elif hora == "19":
+                horas[18]+=1
+        elif hora == "20":
+                horas[19]+=1
+        elif hora == "21":
+                horas[20]+=1
+        elif hora == "22":
+                horas[21]+=1
+        elif hora == "23":
+                horas[22]+=1
+        elif hora == "24":
+                horas[23]+=1
+            
+    aux=max(horas)
+    horaTrafico=horas.index(aux)+1
     #-- calcula promedio confianza --
     promedio = suma/contador
     promedio =promedio*100
@@ -75,7 +135,7 @@ def estadisticas(request):
     #=========================================================================================PALABRAS MAS BUSCADAS
     print("----FINAL----")
     print("palabras: ",len(palabras))
-    return render(request, "estadisticas.html",{"confianza":promedio,"palabras":sorted_palabras,"promedio":promPalabras})
+    return render(request, "estadisticas.html",{"confianza":promedio,"palabras":sorted_palabras,"promedio":promPalabras,"hora":horaTrafico})
 
 #=========================================================================================
 #==============================GRAFICOS===================================================
@@ -83,6 +143,7 @@ def estadisticas(request):
 def graficos(request):
 
     busqueda = Data.objects.all()               #-- saco los datos de la DB
+    rango=2000
 
     palabras=[]                                 #--lista nombre intent
     numeros=[]                                  #--lista cantidad intent
@@ -93,10 +154,13 @@ def graficos(request):
     intents= {}                                 #-- diccionario de intent
     fechas ={}                                  #-- diccionario de fechas
 
+    fechasMeses=[0,0,0,0,0,0,0,0,0,0,0,0]
+    fechasAños={}
+
     promIntent=0                                #-- promedio de intent
     promFechas=0                                #-- promedio de fechas
 
-    for i in range(1000):
+    for i in range(rango):
 
     #== INTENTS ==
         intent=busqueda[i].intent               #-- asigna el intent a una variable
@@ -112,7 +176,6 @@ def graficos(request):
             
     #== FECHAS ==
         date=busqueda[i].fecha.strftime("%d-%m-%Y")     #-- asigna la fecha a una variable
-
         if date is None :                       #si la fecha vuelve vacio, pasa al siguiente
             continue
         
@@ -121,13 +184,48 @@ def graficos(request):
             fechas.update({date:num})
         else :                                   #si la lista no tiene un dato con esta fecha, se agrega a la lista
             fechas.update({date:1}) 
-
-    #== Browser ==
+        
+        año="Año"+date[6:10]
+        if año not in fechasAños:
+            fechasAños.update({año:fechasMeses})
+        auxFechasMeses=fechasAños.get(año).copy()
+        mes=date[3:5]
+        if mes == "01":
+                auxFechasMeses[0]+=1
+        elif mes == "02":
+                auxFechasMeses[1]+=1
+        elif mes == "03":
+                auxFechasMeses[2]+=1
+        elif mes == "04":
+                auxFechasMeses[3]+=1
+        elif mes == "05":
+                auxFechasMeses[4]+=1
+        elif mes == "06":
+                auxFechasMeses[5]+=1 
+        elif mes == "07":
+                auxFechasMeses[6]+=1
+        elif mes == "08":
+                auxFechasMeses[7]+=1
+        elif mes == "09":
+                auxFechasMeses[8]+=1
+        elif mes == "10":
+                auxFechasMeses[9]+=1
+        elif mes == "11":
+                auxFechasMeses[10]+=1
+        elif mes == "12":
+                auxFechasMeses[11]+=1
+        dict={año:auxFechasMeses}
+        fechasAños.update(dict)
+        
+    #== HORAS ==
+        
 
     #== PROCESAMIENTO DE LOS DATOS OBTENIDOS ==
     #-- saca el promedio de  los valores
     promIntent=sum(intents.values())/len(intents.values())
     promFechas=sum(fechas.values())/len(fechas.values())
+
+
 
     #-- ordena el diccionario de mayor a menor y solo incluye los valores mayores o iguales al promedio--
 
@@ -142,12 +240,14 @@ def graficos(request):
     sorted_fechas = {}
     sorted_keys = sorted(fechas, key=fechas.get,reverse=True)  
     for w in sorted_keys:
-        if fechas.get(w)>=promFechas*1.75:
+        if fechas.get(w)>promFechas*2:
             sorted_fechas[w] = fechas[w]
 
     #-- convierte diccionario a strings --
     palabras,numeros = zip(*sorted_intents.items())
     palabrasF, numerosF = zip(*sorted_fechas.items())
+    año2020 =fechasAños.get('Año2020')
+    año2019 =fechasAños.get("Año2019")
 
     #== PREPARACION DATOS A JSON==
     #-- se transforman las listas a json para que puedan ser leidas en javascript  --
@@ -158,11 +258,16 @@ def graficos(request):
     js_dataF1 = json.dumps(palabrasF)   #--json nombre fecha
     js_dataF2 = json.dumps(numerosF)    #--json cantidad fecha
 
+    js_dataA = json.dumps(año2020)   
+    js_dataA2 = json.dumps(año2019)
+
     #== RETURN ==
     print("------------ LISTA -----------")
     print("largo intents:",len(palabras))
     print("largo fechas:",len(palabrasF))
-    return render(request, "graficos.html", {"data1": js_data1,"data2": js_data2,"dataF1": js_dataF1,"dataF2": js_dataF2})
+    diccionario={}
+    diccionario.update({"data1": js_data1,"data2": js_data2,"dataF1": js_dataF1,"dataF2": js_dataF2,"año2020":js_dataA,"año2019":js_dataA2})
+    return render(request, "graficos.html",diccionario )
 
 #=========================================================================================
 #==============================BUSQUEDA===================================================

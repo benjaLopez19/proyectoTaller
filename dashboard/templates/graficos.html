@@ -8,7 +8,7 @@
     <br>
 
     <!-- mostrar chart de intent -->
-    <h1>    INTENT (intenciones del bot mas repetidas)</h1>
+    <h1>    Las intenciones que el bot mas ha identificado</h1>
     <canvas id="myChart" height="100%"></canvas>
     <!-- -->
 
@@ -16,8 +16,14 @@
     <br>
 
     <!-- mostrar chart de fecha -->
-    <h1>    FECHAS (fechas en las que se realizaron mas consultas) </h1>
+    <h1>    Grafico de consulta mensual </h1>
     <canvas id="myChart2" height="100%"></canvas>
+
+    <br>
+    <br>
+
+    <h1>    Grafico de fechas con mas consultas </h1>
+    <canvas id="myChart3" height="100%"></canvas>
     <!-- -->
     
 </div>
@@ -33,7 +39,7 @@
 
 <!-- Script -->
 <script id="data" type="text/javascript" >
-        
+
     // -- Datos recibidos de view, listos para usar -- //
     const received_data1 = JSON.parse("{{data1|escapejs}}");    //nombre de intent
     const received_data2 = JSON.parse("{{data2|escapejs}}");    //cantidad de intent
@@ -41,11 +47,26 @@
     const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");  //"nombre" de fecha
     const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");  //cantidad de fecha
 
-    // ---------------------------------------------- //
+    const received_año2020 = JSON.parse("{{año2020|escapejs}}");  
+    const received_año2019 = JSON.parse("{{año2019|escapejs}}");
+    const MONTHS = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+        ];
     
+    // ---------------------------------------------- //
 
-    // ------ INTENT CHART.js ------ // 
-
+// ------ INTENT CHART.js ------ // 
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -74,6 +95,7 @@
             }]
         },
         options: {
+            indexAxis: 'y',
             scales: {
                 y: {
                     beginAtZero: true
@@ -83,44 +105,77 @@
     });
 
 // ------------------------------------------------------------ //
+// ------ FECHA POR AÑO CHART.js ------ //
 
-// ------ FECHA CHART.js ------ //
-
-const ctx2 = document.getElementById('myChart2').getContext('2d');
-const myChar2 = new Chart(ctx2, {
-    type: 'bar',
-    data: {
-        labels: received_dataF1,        //"nombre" recibido
-        datasets: [{
-            label: '',
-            data: received_dataF2,      //cantidad recibida
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const myChar2 = new Chart(ctx2, {
+        type: 'line',
+    data: data = {
+    labels: MONTHS,
+    datasets: [
+        {
+            label: '2019',
+            data: received_año2019,
+            backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+            borderColor: ['rgba(255, 99, 132, 1)'],
+            borderWidth: 2
+        },
+        {
+            label: '2020',
+            data: received_año2020,
+            backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+            borderColor: ['rgba(54, 162, 235, 1)'],
+            borderWidth: 2
+        }
+    ]
     },
     options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+        responsive: true,
+        plugins: {
+        legend: {
+            position: 'top',
+        },
         }
-    }
-});
+    },
+    });
+
+// ------------------------------------------------------------ //
+// ------ FECHA POR AÑO CHART.js ------ //
+    const ctx3 = document.getElementById('myChart3').getContext('2d');
+        const myChart3 = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: received_dataF1,     //"nombre" recibido
+                datasets: [{
+                    label: '',
+                    data: received_dataF2,   // cantidad recibida
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 
 // ---------------------------------------------------------------- //
 
