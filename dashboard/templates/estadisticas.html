@@ -27,10 +27,12 @@
                 <td>Palabra</td>
                 <td>Cantidad</td>
             {% for var in palabras %}
+            {% if var.numero >= promedio  %}
             </tr>
                 <td>#</td>
                 <td> {{var.palabra}} </td>
                 <td> {{var.numero}} </td>
+            {% endif %}
             {% endfor %}
             
         </thead>
