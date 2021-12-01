@@ -3,6 +3,77 @@
 
 {% block content %}
 
+<style>
+
+    .contenedor{
+        right: 5%;
+        background: rgb(223, 223, 223);
+        border: 3px solid rgb(223, 223, 223);
+        max-height: auto;
+        padding: 2%;
+    }
+    .usercontainer{
+    float: right;
+    border: 2px solid #73AD21;
+    background-color: #73AD21;
+    margin-right: 1%;   
+    max-width:60%;
+    min-height: fit-content;
+    max-height: fit-content;
+    border-radius: 10px 10px 1px 15px;
+    }
+    .botcontainer{
+    float: left;
+    border: 2px solid skyblue;
+    background-color: skyblue;
+    margin-left: 2%;
+    max-width:60%;
+    min-height: fit-content;
+    max-height: fit-content;
+    border-radius: 10px 10px 15px 1px;
+    }
+
+    .chat li{
+        display: inline-block;
+        padding: 1%;
+    }
+
+    .button1{
+        left: 0%;
+        border: none;
+        outline: none;
+        min-width: 200px;
+        max-width: max-content;
+        height: 40PX;
+        background: #86DC3D;
+        color: #fff;
+        
+    }
+
+    .button1:hover{
+        cursor: pointer;
+        background: #fff;
+        color: #000;
+    }
+
+    .button2{
+        left: 0%;
+        border: none;
+        outline: none;
+        min-width: 200px;
+        max-width: max-content;
+        height: 40PX;
+        background: skyblue;
+        color: #fff;
+        
+    }
+
+    .button2:hover{
+        cursor: pointer;
+        background: #fff;
+        color: #000;
+    }
+</style>
 
 <!--CONTENIDO HTML VA ACA-->
 
@@ -19,32 +90,38 @@
             {{form.as_ul}}
         </ul>
 
-        <input class="btn btn-outline-secondary my-2 my-sm-0" type="submit" value="Buscar">
+        <input class="btn btn-outl  ine-secondary my-2 my-sm-0" type="submit" value="Buscar">
     </form>
 </nav>
 
 {% if busqueda %}
 
     {% for var in busqueda %}
+        <div class="contenedor">
+                    <ul>
+                        <div class="botcontainer p-2">
+                            <p>🙋‍♂️ {{var.mensaje_usuario}}</p>
+                        </div><br />
 
-        <div class="card p-2 m-2 ml-5 mr-5">
-            <ul style="list-style-type: none;">
-                <li>
-                    <ul style="list-style-type: none;">
-                        <li>
-                            <p>Mensaje usuario: {{var.mensaje_usuario}}</p>
-                        </li>
-                        <li>
-                            <p>Respuesta bot: {{var.respuesta_bot|striptags}}</p>
-                        </li>
-                        <li class="align-content-center">
-                            <form action="/convContext/{{var.conversation_id}}">
-                                <button class="btn btn-outline-info my-2 my-sm-0">Id de la conversacion: {{var.conversation_id}}</button>
-                            </form>
-                        </li>
+                        <div class="usercontainer p-2">
+                            <p>{{var.respuesta_bot|striptags}}🤖</p>
+                        </div><br />
+                        
                     </ul>
-                </li>
-            </ul>
+        </div>
+        <div class="chat">
+        <ul>
+            <li>
+                <form action="/convContext/{{var.conversation_id}}">
+                    <button class="button1">Click aqui para ver conversación</button>
+                </form>
+            </li>
+            <!--<li>
+                <form action="/convContext/{{var.conversation_id}}">
+                    <button class="button2">Ver detalles</button>
+                </form>
+            </li> -->
+        </ul>
         </div>
     {% endfor %}
 
