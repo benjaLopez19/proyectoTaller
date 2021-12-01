@@ -3,34 +3,109 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        background: white;
+        background-size: cover;
+        background-position: center;
+
+
+    }
+
+    .loginbox{
+        width: 320px;
+        height: 420px;
+        background: #1260CC;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        box-sizing: border-box;
+        padding: 70px 30px;
+    }
+    .loginbox h1{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .loginbox p{
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    }
+    .loginbox input{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .loginbox input[type="password"],input[type="text"]{
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: transparent;
+        height: 40px;
+
+    }
+
+    .loginbox button{
+        border: none;
+        outline: none;
+        height: 40PX;
+        background: #86DC3D;
+        color: #fff;
+    }
+
+    .loginbox button:hover{
+        cursor: pointer;
+        background: #fff;
+        color: #000;
+    }
+    
+    .avatar{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        top: -50px;
+        left: 35%;
+    
+    }
+
+    
+
+</style>
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Ingreso de suario</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
     <body>
-       
-        <div> 
-
+       <div class="loginbox">
+           <img src="https://cdn2.iconfinder.com/data/icons/audio-16/96/user_avatar_profile_login_button_account_member-512.png" class="avatar" >
+            <h1>Ingrese Aqui</h1>
             <form method="POST">
                 {% csrf_token %}
                     <div>
-                        <label>Nombre de usuario</label>
+                        <p>Nombre de usuario</p>
                         <input type="text" placeholder="Nombre de Usuario" name="username">
                     </div>
                     <div>
-                        <label>Contrasena</label>
+                        <p>Contrasena</p>
                         <input type="password" placeholder="contrasena" name="password">
                     </div>
-                    <button type="submit">Inciar sesion</button>
+                    <button type="submit">INICIA SESIÓN</button>
                     
             </form>
 
-        </div>
+            
+       </div>
         
     </body>
 </html>
