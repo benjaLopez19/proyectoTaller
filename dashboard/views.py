@@ -19,23 +19,23 @@ def home(request):
 def estadisticas(request):
     busqueda = Data.objects.all()
     rango=2000
-
     horas=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
     #-- variables confianza --
     confianza =0
     suma = 0
     contador=0
+
     #-- variables palabras --
     palabras = []
-    masrepetidas = [6]
     aux = []
     auxPalabras=[]
 
     for i in range(rango):
     #== confianza ==
-        confianza = busqueda[i].confidence              #-- 
+        confianza = busqueda[i].confidence              
         if isinstance(confianza,float):
-            suma = suma + confianza                     #-- 
+            suma = suma + confianza                     
             contador+=1
         
     #== palabras mas usadas ==
@@ -121,18 +121,20 @@ def estadisticas(request):
             
     aux=max(horas)
     horaTrafico=horas.index(aux)+1
+
     #-- calcula promedio confianza --
     promedio = suma/contador
     promedio =promedio*100
     promedio = int(promedio)
     #--------------------------------
+
+
     promPalabras=0
     sorted_palabras=sorted(palabras, key = lambda i: i['numero'],reverse=True)
     for i in palabras:
         promPalabras += i.get('numero')
     promPalabras/=len(palabras)
 
-    #=========================================================================================PALABRAS MAS BUSCADAS
     print("----FINAL----")
     print("palabras: ",len(palabras))
     return render(request, "estadisticas.html",{"confianza":promedio,"palabras":sorted_palabras,"promedio":promPalabras,"hora":horaTrafico})
@@ -154,8 +156,8 @@ def graficos(request):
     intents= {}                                 #-- diccionario de intent
     fechas ={}                                  #-- diccionario de fechas
 
-    fechasMeses=[0,0,0,0,0,0,0,0,0,0,0,0]
-    fechasAños={}
+    fechasMeses=[0,0,0,0,0,0,0,0,0,0,0,0]       #--lista de meses inicial
+    fechasAños={}                               #--diccionario de años
 
     promIntent=0                                #-- promedio de intent
     promFechas=0                                #-- promedio de fechas
@@ -185,6 +187,7 @@ def graficos(request):
         else :                                   #si la lista no tiene un dato con esta fecha, se agrega a la lista
             fechas.update({date:1}) 
         
+        #-- llenar lista de fechas y diccionario
         año="Año"+date[6:10]
         if año not in fechasAños:
             fechasAños.update({año:fechasMeses})
@@ -216,16 +219,11 @@ def graficos(request):
                 auxFechasMeses[11]+=1
         dict={año:auxFechasMeses}
         fechasAños.update(dict)
-        
-    #== HORAS ==
-        
 
     #== PROCESAMIENTO DE LOS DATOS OBTENIDOS ==
     #-- saca el promedio de  los valores
     promIntent=sum(intents.values())/len(intents.values())
     promFechas=sum(fechas.values())/len(fechas.values())
-
-
 
     #-- ordena el diccionario de mayor a menor y solo incluye los valores mayores o iguales al promedio--
 
@@ -243,23 +241,24 @@ def graficos(request):
         if fechas.get(w)>promFechas*2:
             sorted_fechas[w] = fechas[w]
 
+
+    #== PREPARACION DATOS A JSON==
+
     #-- convierte diccionario a strings --
     palabras,numeros = zip(*sorted_intents.items())
     palabrasF, numerosF = zip(*sorted_fechas.items())
     año2020 =fechasAños.get('Año2020')
     año2019 =fechasAños.get("Año2019")
 
-    #== PREPARACION DATOS A JSON==
     #-- se transforman las listas a json para que puedan ser leidas en javascript  --
-
     js_data1 = json.dumps(palabras)     #--json nombre intent
     js_data2 = json.dumps(numeros)      #--json cantidad intent
 
     js_dataF1 = json.dumps(palabrasF)   #--json nombre fecha
     js_dataF2 = json.dumps(numerosF)    #--json cantidad fecha
 
-    js_dataA = json.dumps(año2020)   
-    js_dataA2 = json.dumps(año2019)
+    js_dataA = json.dumps(año2020)      #--json año2020
+    js_dataA2 = json.dumps(año2019)     #-- json año2019
 
     #== RETURN ==
     print("------------ LISTA -----------")

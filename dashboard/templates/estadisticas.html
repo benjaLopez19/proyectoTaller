@@ -4,33 +4,34 @@
 
 <!--CONTENIDO HTML VA ACA-->
 
-<div class="container">
-    <h4>
-        Confianza promedio del bot:
-    </h4>
+<style>
+    .separator{
+        border: 1px solid rgb(180, 180, 180);
+        margin: 0% 10%
+    }
+    .containerEstadistico{
+        margin: 1.5% 12.5%;
+    }
+</style>
 
+<div class="containerEstadistico">
+    <h4>Confianza promedio del bot:</h4>
     <h3>{{confianza}}%</h3>
-
     <label for="confidence">Observacion: La confianza del bot, se define como la seguridad que tiene el bot de que la respuesta del usuario sea igual a la pronosticada.</label>
-
 </div>
 
-<div class="container">
-    <h4>
-        Hora de mayor trafico de consultas:
-    </h4>
+<div class="separator"></div>
 
+<div class="containerEstadistico">
+    <h4>Hora de mayor trafico de consultas:</h4>
     <h3>{{hora}}:00</h3>
-
     <label for="hora">Observacion: Formato de 24 hrs.</label>
-
 </div>
 
+<div class="separator"></div>
 
-<div class="container">
-    <h4>
-        Palabras mas repetidas:
-    </h4>
+<div class="containerEstadistico">
+    <h4>Palabras mas repetidas:</h4>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -45,12 +46,9 @@
                 <td> {{var.numero}} </td>
             {% endif %}
             {% endfor %}
-            
         </thead>
-
     </table>
-    <label for="confidence">Observacion: La cantidad es la veces que se encontro la palabra en la base de datos y su frecuencia es la probabilidad de aparición en una conversación.</label>
-
+    <label for="confidence">Observacion: La cantidad es la veces que se encontro la palabra en la base de datos.</label>
 </div>
 
 {% endblock %}

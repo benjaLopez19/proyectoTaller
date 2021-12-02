@@ -4,14 +4,17 @@
 {% block content %}
 
 <style>
-
     .contenedor{
         right: 5%;
         background: rgb(223, 223, 223);
         border: 3px solid rgb(223, 223, 223);
         max-height: auto;
         padding: 2%;
+        margin: 2% 7.5% 0% 7.5%;
+        border:  2px solid rgb(82, 82, 82);
+        border-radius:  10px 10px 10px 10px;
     }
+
     .usercontainer{
     float: right;
     border: 2px solid #73AD21;
@@ -22,6 +25,7 @@
     max-height: fit-content;
     border-radius: 10px 10px 1px 15px;
     }
+
     .botcontainer{
     float: left;
     border: 2px solid skyblue;
@@ -35,7 +39,13 @@
 
     .chat li{
         display: inline-block;
-        padding: 1%;
+        padding: 0% 1.5% 0% 1.5%;
+        margin-bottom: 1%;
+        background: rgb(223, 223, 223);
+        border-radius:  0px 0px 10px 10px;
+        border:  2px solid rgb(82, 82, 82);
+        border-top: 0px;
+        margin: -0.15em 7.5%;
     }
 
     .button1{
@@ -47,7 +57,7 @@
         height: 40PX;
         background: #86DC3D;
         color: #fff;
-        
+        border-radius:  5px 5px 5px 5px;
     }
 
     .button1:hover{
@@ -64,8 +74,7 @@
         max-width: max-content;
         height: 40PX;
         background: skyblue;
-        color: #fff;
-        
+        color: #fff; 
     }
 
     .button2:hover{
@@ -73,6 +82,7 @@
         background: #fff;
         color: #000;
     }
+    
 </style>
 
 <!--CONTENIDO HTML VA ACA-->

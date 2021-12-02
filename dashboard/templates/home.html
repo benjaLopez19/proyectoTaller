@@ -10,6 +10,7 @@
         color: white;
         font-weight: bolder;
     }
+
     h2{
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: black;
@@ -19,8 +20,9 @@
     .left {
       float: left;
       font-size: 40px;
-      margin-top: 10%;
-      margin-left: 5%;
+      margin-top: 1%;
+      margin-left: auto;
+      margin-right: auto;
       width: 600px;
       border: 3px ;
       padding: 10px;
@@ -29,6 +31,12 @@
       width: fit-content;
       height: fit-content;
       
+    }
+
+    .right{
+      margin-top: 1%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .button {
@@ -44,16 +52,14 @@
     cursor: pointer;
     border-radius: 7px;
 }
-img{
+    img{
         
         max-width: 50%;
         height: auto;
     }
 
-
-    </style>
-    </head>
-
+</style>
+</head>
 
 <body>
     <div class="left">
@@ -65,8 +71,7 @@ img{
             <a href="https://somoseasybots.com/#contact" class="button"><h2>agenda tu reunión ahora</h2></a>
         </div>
     </div>     
-
-    <img src="https://somoseasybots.com/img/ilusPpal.png" align="right">
+    <img class="right" src="https://somoseasybots.com/img/ilusPpal.png" align="right">
 </body>
 
 {% endblock %}

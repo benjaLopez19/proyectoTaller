@@ -3,29 +3,43 @@
 
 {% block content %}
 
+<style>
+    .chart{
+        border: 1px solid rgb(201, 201, 201);
+        border-radius: 0.5em;
+        padding: 2em;
+        margin: 0% 3%;
+    }
+</style>
+
 <!--CONTENIDO HTML VA ACA-->
 <div>
-    <br>
 
+    <br>
+    <div class="chart">
     <!-- mostrar chart de intent -->
-    <h1>    Las intenciones que el bot mas ha identificado</h1>
+    <h1>    Intenciones mas identificadas</h1>
     <canvas id="myChart" height="100%"></canvas>
-    <!-- -->
+    </div>
 
     <br>
     <br>
 
-    <!-- mostrar chart de fecha -->
-    <h1>    Grafico de consulta mensual </h1>
+    <div class="chart">
+    <!-- mostrar chart de fecha por meses -->
+    <h1>    Numero de consultas mensuales </h1>
     <canvas id="myChart2" height="100%"></canvas>
+    </div>
 
     <br>
     <br>
 
-    <h1>    Grafico de fechas con mas consultas </h1>
+    <div class="chart">
+    <!-- mostrar chart de fecha -->
+    <h1>     Fechas con mas consultas </h1>
     <canvas id="myChart3" height="100%"></canvas>
-    <!-- -->
-    
+    </div>
+
 </div>
 
 <!-- Datos sacados de view.py -->
@@ -41,15 +55,15 @@
 <script id="data" type="text/javascript" >
 
     // -- Datos recibidos de view, listos para usar -- //
-    const received_data1 = JSON.parse("{{data1|escapejs}}");    //nombre de intent
-    const received_data2 = JSON.parse("{{data2|escapejs}}");    //cantidad de intent
+    const received_data1 = JSON.parse("{{data1|escapejs}}");        //nombre de intent
+    const received_data2 = JSON.parse("{{data2|escapejs}}");        //cantidad de intent
 
-    const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");  //"nombre" de fecha
-    const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");  //cantidad de fecha
+    const received_dataF1 = JSON.parse("{{dataF1|escapejs}}");      //"nombre" de fecha
+    const received_dataF2 = JSON.parse("{{dataF2|escapejs}}");      //cantidad de fecha
 
-    const received_año2020 = JSON.parse("{{año2020|escapejs}}");  
-    const received_año2019 = JSON.parse("{{año2019|escapejs}}");
-    const MONTHS = [
+    const received_año2020 = JSON.parse("{{año2020|escapejs}}");    //cantidad año 2020
+    const received_año2019 = JSON.parse("{{año2019|escapejs}}");    //cantidad año 2019
+    const MONTHS = [                                                //Array de meses
         'January',
         'February',
         'March',
@@ -63,10 +77,9 @@
         'November',
         'December'
         ];
-    
     // ---------------------------------------------- //
 
-// ------ INTENT CHART.js ------ // 
+    // ------ INTENT CHART.js ------ // 
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -103,10 +116,9 @@
             }
         }
     });
+    // ------------------------------------------------------------ //
 
-// ------------------------------------------------------------ //
-// ------ FECHA POR AÑO CHART.js ------ //
-
+    // ------ FECHA POR AÑO CHART.js ------ //
     const ctx2 = document.getElementById('myChart2').getContext('2d');
     const myChar2 = new Chart(ctx2, {
         type: 'line',
@@ -138,11 +150,11 @@
         }
     },
     });
+    // ------------------------------------------------------------ //
 
-// ------------------------------------------------------------ //
-// ------ FECHA POR AÑO CHART.js ------ //
+    // ------ FECHA POR AÑO CHART.js ------ //
     const ctx3 = document.getElementById('myChart3').getContext('2d');
-        const myChart3 = new Chart(ctx3, {
+    const myChart3 = new Chart(ctx3, {
             type: 'bar',
             data: {
                 labels: received_dataF1,     //"nombre" recibido
@@ -176,8 +188,7 @@
                 }
             }
         });
-
-// ---------------------------------------------------------------- //
+    // ---------------------------------------------------------------- //
 
 </script>
 
